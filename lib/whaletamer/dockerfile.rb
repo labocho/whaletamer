@@ -15,15 +15,17 @@ module Whaletamer
         dockerfile = config["dockerfile"]
         dockerfile_root = File.dirname(dockerfile)
 
-        DSL.new.evaluate(File.read(dockerfile))
+        DSL.new(config["attributes"]).evaluate(File.read(dockerfile))
       end
     end
 
     class DSL
-      attr_reader :buffer
+      attr_reader :buffer, :attributes
+      private :buffer
 
-      def initialize
+      def initialize(attributes)
         @buffer = []
+        @attributes = attributes
       end
 
       def evaluate(dsl)

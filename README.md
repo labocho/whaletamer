@@ -22,7 +22,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    # Generate boilerplate
+    $ whaletamer init
+    # Generate Dockerfile and print
+    $ whaletamer dockerfile IMAGE_NAME
+    # Build docker image
+    $ whaletamer build IMAGE_NAME
 
 ## Development
 

@@ -5,11 +5,16 @@ module Whaletamer
     desc "init", "Generate boilerplate"
     def init
       # TODO
+
+      puts "Generate encryption_key..."
+      system("openssl rand -base64 512 | tr -d '\\r\\n' > encryption_key")
+
+      system("echo /encryption_key >> .gitignore")
     end
 
     desc "dockerfile IMAGE_NAME", "Dockerfile and print"
     def dockerfile(image_name)
-      dockerfile = Dockerfile.generate(load_image_config(image))
+      dockerfile = Dockerfile.generate(load_image_config(image_name))
       puts dockerfile
     end
 
@@ -25,6 +30,16 @@ module Whaletamer
           end
         end
       end
+    end
+
+    desc "encrypt", "Encrypt STDIN"
+    def encrypt
+      print Config.encrypt($stdin.read)
+    end
+
+    desc "decrypt", "Decrypt STDIN"
+    def decrypt
+      print Config.decrypt($stdin.read)
     end
 
     private
