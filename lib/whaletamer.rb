@@ -1,5 +1,7 @@
 require "whaletamer/version"
 
 module Whaletamer
-  # Your code goes here...
+  require "whaletamer/cli"
+  require "whaletamer/config"
+  require "whaletamer/dockerfile"
 end
