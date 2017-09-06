@@ -10,21 +10,35 @@ module Whaletamer
       system("openssl rand -base64 512 | tr -d '\\r\\n' > encryption_key")
 
       system("echo /encryption_key >> .gitignore")
+      system("echo /.compiled >> .gitignore")
     end
 
     desc "dockerfile IMAGE_NAME", "Dockerfile and print"
     def dockerfile(image_name)
-      dockerfile = Dockerfile.generate(load_image_config(image_name))
+      compiler = Compiler.new
+      dockerfile = compiler.compile_dockerfile(image_name)
       puts dockerfile
+    end
+
+    desc "compile IMAGE_NAME", "Compile Dockerfile and files to .compiled/IMAGE_NAME"
+    def compile(image_name)
+      dir = ".compiled/#{image_name}"
+      FileUtils.rm_rf(dir)
+      FileUtils.mkdir_p(dir)
+
+      compiler = Compiler.new
+      compiler.compile(image_name, dir)
     end
 
     desc "build IMAGE_NAME", "Build docker image"
     def build(image_name)
       require "tmpdir"
-      dockerfile = Dockerfile.generate(load_image_config(image_name))
+
       Dir.mktmpdir do |dir|
+        compiler = Compiler.new
+        compiler.compile(image_name, dir)
+
         Dir.chdir(dir) do
-          File.write("Dockerfile", dockerfile)
           unless system("docker", "build", "--tag=#{image_name}", ".", out: $stdout, err: $stderr)
             exit $?
           end
@@ -34,18 +48,12 @@ module Whaletamer
 
     desc "encrypt", "Encrypt STDIN"
     def encrypt
-      print Config.encrypt($stdin.read)
+      print Compiler.new.encrypt($stdin.read)
     end
 
     desc "decrypt", "Decrypt STDIN"
     def decrypt
-      print Config.decrypt($stdin.read)
-    end
-
-    private
-    def load_image_config(image_name)
-      config = Config.load
-      config.fetch(image_name)
+      print Compiler.new.decrypt($stdin.read)
     end
   end
 end

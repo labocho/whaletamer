@@ -1,13 +1,8 @@
-require "yaml"
 require "reversible_cryptography"
 
 module Whaletamer
-  module Config
-    class << self
-      def load
-        decrypt_object(YAML.load_file("images.yml"))
-      end
-
+  class Compiler
+    module Encryption
       def decrypt_object(o)
         case o
         when Array

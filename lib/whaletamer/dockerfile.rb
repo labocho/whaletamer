@@ -40,6 +40,10 @@ module Whaletamer
       def run(command)
         buffer << "RUN #{command}"
       end
+
+      def copy(src_and_dest)
+        buffer << "COPY #{src_and_dest}"
+      end
     end
   end
 end
