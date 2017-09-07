@@ -1,0 +1,8 @@
+ruby:
+  dockerfile: dockerfile/ruby/default.rb
+  attributes:
+    s3:
+      secret_access_key:
+        # echo foobar | whaletamer encrypt
+        _encrypted: md5:3858f62230ac3c915f300c664312c63f:salt:40-129-186-164-219-137-155-213:aes-256-cfb:tbU15EpM
+

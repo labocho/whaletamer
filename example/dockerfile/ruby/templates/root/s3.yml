@@ -1,0 +1,1 @@
+secret_access_key: <%= attributes["s3"]["secret_access_key"] %>
