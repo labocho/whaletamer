@@ -11,6 +11,8 @@ module Whaletamer
 
       system("echo /encryption_key >> .gitignore")
       system("echo /.compiled >> .gitignore")
+
+      # generate config.yml
     end
 
     desc "dockerfile IMAGE_NAME", "Dockerfile and print"
@@ -48,12 +50,12 @@ module Whaletamer
 
     desc "encrypt", "Encrypt STDIN"
     def encrypt
-      print Compiler.new.encrypt($stdin.read)
+      print Compiler.new.encrypter.encrypt($stdin.read)
     end
 
     desc "decrypt", "Decrypt STDIN"
     def decrypt
-      print Compiler.new.decrypt($stdin.read)
+      print Compiler.new.encrypter.decrypt($stdin.read)
     end
   end
 end
