@@ -2,7 +2,7 @@ require "reversible_cryptography"
 
 module Whaletamer
   class Compiler
-    module Encryption
+    class Encrypter
       def decrypt_object(o)
         case o
         when Array
