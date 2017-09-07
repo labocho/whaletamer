@@ -6,9 +6,9 @@ module Whaletamer
     class ImageCompiler
       attr_reader :src_dir, :config, :encrypter
 
-      def initialize(src_dir, config, encrypter)
-        @src_dir = src_dir
+      def initialize(config, encrypter)
         @config = config
+        @src_dir = File.dirname(config["dockerfile"])
         @encrypter = encrypter
       end
 

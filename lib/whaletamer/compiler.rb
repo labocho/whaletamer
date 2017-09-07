@@ -30,7 +30,7 @@ module Whaletamer
     end
 
     def build_image_compiler(image_name)
-      ImageCompiler.new("dockerfile/#{image_name}", config.fetch(image_name), encrypter)
+      ImageCompiler.new(config.fetch(image_name), encrypter)
     end
   end
 end
