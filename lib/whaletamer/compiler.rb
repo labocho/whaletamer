@@ -5,6 +5,7 @@ require "erb"
 
 module Whaletamer
   class Compiler
+    require "whaletamer/compiler/dockerfile_compiler"
     require "whaletamer/compiler/encrypter"
     require "whaletamer/compiler/image_compiler"
 

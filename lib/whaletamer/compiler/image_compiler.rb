@@ -19,7 +19,7 @@ module Whaletamer
       end
 
       def compile_dockerfile
-        ::Whaletamer::Dockerfile.generate(config)
+        DockerfileCompiler.generate(config)
       end
 
       private
