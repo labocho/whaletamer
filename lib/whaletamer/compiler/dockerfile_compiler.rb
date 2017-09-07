@@ -34,16 +34,10 @@ module Whaletamer
           buffer.join("\n")
         end
 
-        def from(image)
-          buffer << "FROM #{image}"
-        end
-
-        def run(command)
-          buffer << "RUN #{command}"
-        end
-
-        def copy(src_and_dest)
-          buffer << "COPY #{src_and_dest}"
+        %w(FROM RUN CMD LABEL MAINTAINER EXPOSE ENV ADD COPY ENTRYPOINT VOLUME USER WORKDIR ARG ONBUILD STOPSIGNAL HEALTHCHECK SHELL).each do |directive|
+          define_method(directive.downcase) do |arg|
+            buffer << "#{directive} #{arg}"
+          end
         end
       end
     end
