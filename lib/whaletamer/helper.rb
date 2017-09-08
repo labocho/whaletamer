@@ -1,9 +1,10 @@
 require "shellwords"
 module Whaletamer
   module Helper
-    def user(name, shell: nil)
+    def user(name, shell: nil, uid: nil)
       command = ["useradd", "-m"]
       command += ["-s", shell] if shell
+      command += ["-u", uid] if uid
       command << name
 
       run command.shelljoin
